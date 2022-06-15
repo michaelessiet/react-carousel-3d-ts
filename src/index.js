@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { useSwipeable } from 'react-swipeable';
-import PropTypes from 'prop-types';
-import './styles/style.scss';
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import { useSwipeable } from "react-swipeable";
+import PropTypes from "prop-types";
+import "./styles/style.scss";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 // const isEqual = require("react-fast-compare");
 
@@ -9,28 +10,28 @@ export function Carousel(props) {
   const [slideTotal, setSlideTotal] = useState(0);
   const [slideCurrent, setSlideCurrent] = useState(-1);
   const [slides, setSlides] = useState([]);
-  const [height, setHeight] = useState('0px');
+  const [height, setHeight] = useState("0px");
   const intervalRef = useRef(null);
   const nextRef = useRef();
   const handlers = useSwipeable({
     onSwipedLeft: () => slideRight(),
     onSwipedRight: () => slideLeft(),
     preventDefaultTouchmoveEvent: true,
-    trackMouse: true
+    trackMouse: true,
   });
   useEffect(() => {
     const locSlides = [];
     props.slides.forEach((slide) => {
       const slideobject = {
-        class: 'slider-single proactivede',
+        class: "slider-single proactivede",
         element: slide,
       };
       locSlides.push(slideobject);
     });
-    if(props.slides.length === 2){
+    if (props.slides.length === 2) {
       props.slides.forEach((slide) => {
         const slideobject = {
-          class: 'slider-single proactivede',
+          class: "slider-single proactivede",
           element: slide,
         };
         locSlides.push(slideobject);
@@ -45,25 +46,25 @@ export function Carousel(props) {
         if (props.autoplay) {
           intervalRef.current = setTimeout(() => {
             nextRef.current.click();
-        }, props.interval);}
+          }, props.interval);
+        }
       }, 500);
     }
   }, [props.slides]);
-  useEffect(()=>{
-    if(slideCurrent === -1){
+  useEffect(() => {
+    if (slideCurrent === -1) {
       setTimeout(() => {
         //slideRight();
       }, 500);
     }
-  },[slides,slideCurrent]);
+  }, [slides, slideCurrent]);
 
-  
   const slideRight = () => {
     let preactiveSlide;
     let proactiveSlide;
     let slideCurrentLoc = slideCurrent;
-    
-    const activeClass = 'slider-single active';
+
+    const activeClass = "slider-single active";
     const slide = [...slides];
     if (slideTotal > 1) {
       if (slideCurrentLoc < slideTotal) {
@@ -84,25 +85,29 @@ export function Carousel(props) {
       }
 
       slide.forEach((slid, index) => {
-        if (slid.class.includes('preactivede')) {
-          slid.class = 'slider-single proactivede';
+        if (slid.class.includes("preactivede")) {
+          slid.class = "slider-single proactivede";
         }
-        if (slid.class.includes('preactive')) {
-          slid.class = 'slider-single preactivede';
+        if (slid.class.includes("preactive")) {
+          slid.class = "slider-single preactivede";
         }
       });
 
-      preactiveSlide.class = 'slider-single preactive';
+      preactiveSlide.class = "slider-single preactive";
       activeSlide.class = activeClass;
-      proactiveSlide.class = 'slider-single proactive';
+      proactiveSlide.class = "slider-single proactive";
       setSlides(slide);
       setSlideCurrent(slideCurrentLoc);
 
-      if (document.getElementsByClassName('slider-single active').length > 0) {
+      if (document.getElementsByClassName("slider-single active").length > 0) {
         setTimeout(() => {
-          if (document.getElementsByClassName('slider-single active').length > 0) {
-            const height = document.getElementsByClassName('slider-single active')[0].clientHeight;
-            setHeight(`${height  }px`);
+          if (
+            document.getElementsByClassName("slider-single active").length > 0
+          ) {
+            const height = document.getElementsByClassName(
+              "slider-single active"
+            )[0].clientHeight;
+            setHeight(`${height}px`);
           }
         }, 500);
       }
@@ -143,24 +148,28 @@ export function Carousel(props) {
         preactiveSlide = slide[slideTotal];
       }
       slide.forEach((slid, index) => {
-        if (slid.class.includes('proactivede')) {
-          slid.class = 'slider-single preactivede';
+        if (slid.class.includes("proactivede")) {
+          slid.class = "slider-single preactivede";
         }
-        if (slid.class.includes('proactive')) {
-          slid.class = 'slider-single proactivede';
+        if (slid.class.includes("proactive")) {
+          slid.class = "slider-single proactivede";
         }
       });
-      preactiveSlide.class = 'slider-single preactive';
-      activeSlide.class = 'slider-single active';
-      proactiveSlide.class = 'slider-single proactive';
+      preactiveSlide.class = "slider-single preactive";
+      activeSlide.class = "slider-single active";
+      proactiveSlide.class = "slider-single proactive";
       setSlides(slide);
       setSlideCurrent(slideCurrentLoc);
       props.onSlideChange(slideCurrentLoc);
-      if (document.getElementsByClassName('slider-single active').length > 0) {
+      if (document.getElementsByClassName("slider-single active").length > 0) {
         setTimeout(() => {
-          if (document.getElementsByClassName('slider-single active').length > 0) {
-            const height = document.getElementsByClassName('slider-single active')[0].clientHeight;
-            setHeight(`${height }px`);
+          if (
+            document.getElementsByClassName("slider-single active").length > 0
+          ) {
+            const height = document.getElementsByClassName(
+              "slider-single active"
+            )[0].clientHeight;
+            setHeight(`${height}px`);
           }
         }, 500);
       }
@@ -170,7 +179,7 @@ export function Carousel(props) {
   const sliderClass = (direction) => {
     let sliderClass = `slider-${direction}`;
     if (!props.arrows) {
-      sliderClass = 'slider-disabled';
+      sliderClass = "slider-disabled";
     } else if (props.arrows && !props.arrowBorders) {
       sliderClass = `slider-${direction}-noborders`;
     }
@@ -179,32 +188,33 @@ export function Carousel(props) {
 
   return (
     <div className="react-3d-carousel" style={{ height }} {...handlers}>
-          {slides && slides.length > 0
-                && <div className="slider-container" >
+      {slides && slides.length > 0 && (
+        <div className="slider-container">
+          <div className="slider-content">
+            {slides.map((slider, index) => (
+              <div className={slider.class} key={index}>
+                <div className={sliderClass("left")} onClick={slideLeft}>
+                  <div>
+                    <FaArrowLeft />
+                  </div>
+                </div>
+                <div
+                  className={sliderClass("right")}
+                  onClick={slideRight}
+                  ref={nextRef}
+                >
+                  <div>
+                    <FaArrowRight />
+                  </div>
+                </div>
 
-                  <div className="slider-content">
-                      {slides.map((slider, index) => (
-                                <div className={slider.class} key={index}>
-                                    <div className={sliderClass('left')} onClick={slideLeft}>
-                                        <div>
-                                            <i className="fa fa-arrow-left"></i>
-                                        </div>
-                                    </div>
-                                    <div className={sliderClass('right')} onClick={slideRight} ref={nextRef}>
-                                        <div >
-                                            <i className="fa fa-arrow-right"></i>
-                                        </div>
-                                    </div>
-
-                                    <div className="slider-single-content">
-                                        {slider.element}
-                                    </div>
-                                </div>
-                      ))}
-                    </div>
-
-                </div>}
+                <div className="slider-single-content">{slider.element}</div>
+              </div>
+            ))}
+          </div>
         </div>
+      )}
+    </div>
   );
 }
 Carousel.propTypes = {
@@ -213,16 +223,12 @@ Carousel.propTypes = {
   interval: PropTypes.number,
   arrows: PropTypes.bool,
   arrowBorders: PropTypes.bool,
-  onSlideChange:PropTypes.func
+  onSlideChange: PropTypes.func,
 };
 Carousel.defaultProps = {
   autoplay: false,
   interval: 3000,
   arrows: true,
   arrowBorders: true,
-  onSlideChange:function(){
-
-  }
+  onSlideChange: function () {},
 };
-
-

@@ -129,11 +129,13 @@ $mode: cubic-bezier(0.17, 0.67, 0.55, 1.43);
         margin-top: -20px;
         color: #ffffff;
         transform: translateY(-50%);
-        padding: 10px 10px;
-        border-top: 2px solid #fdc84b;
-        border-right: 2px solid #fdc84b;
-        border-bottom: 2px solid #fdc84b;
-        border-left: 2px solid #fdc84b;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #101149;
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50%;
       }
     }
     .slider-right {
@@ -151,11 +153,13 @@ $mode: cubic-bezier(0.17, 0.67, 0.55, 1.43);
         margin-top: -20px;
         color: #ffffff;
         transform: translateY(-50%);
-        padding: 10px 10px;
-        border-top: 2px solid #fdc84b;
-        border-right: 2px solid #fdc84b;
-        border-bottom: 2px solid #fdc84b;
-        border-left: 2px solid #fdc84b;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #101149;
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50%;
       }
       margin-left: -2px;
     }
